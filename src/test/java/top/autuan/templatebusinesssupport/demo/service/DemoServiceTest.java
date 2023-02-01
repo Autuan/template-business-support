@@ -1,5 +1,6 @@
 package top.autuan.templatebusinesssupport.demo.service;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,18 +17,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-//@ExtendWith(MockitoExtension.class)
-@AutoConfigureMockMvc
-@RequiredArgsConstructor
 class DemoServiceTest {
-//    @Autowired
-//    @MockBean
-    private final DemoService demoService;
+    @Autowired
+    private DemoService demoService;
+
 
     @Test
     void
     queryStr() {
         String str = demoService.queryStr();
+        System.out.println(str);
         Assertions.assertNotNull(str);
     }
 }
