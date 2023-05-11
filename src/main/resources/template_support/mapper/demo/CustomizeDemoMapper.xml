@@ -5,7 +5,7 @@
 
 
     <select id="queryStr"  resultType="string">
-        select `name`
+        select `mobile`
         from member
         limit 1
     </select>
