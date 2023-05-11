@@ -1,16 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="top.autuan.templatebusinesssupport.member.mapper.MemberMapper">
+<mapper namespace="online.tanyouhui.carbon_support.member.mapper.MemberMapper">
   <resultMap id="BaseResultMap" type="top.autuan.templatebusinesssupport.member.entity.Member">
-    <id column="member_id" jdbcType="INTEGER" property="memberId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />
-    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="ban" jdbcType="INTEGER" property="ban" />
+    <result column="team_id" jdbcType="BIGINT" property="teamId" />
+    <result column="owner_team_id" jdbcType="BIGINT" property="ownerTeamId" />
+    <result column="pay_password" jdbcType="VARCHAR" property="payPassword" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="last_login_ip" jdbcType="INTEGER" property="lastLoginIp" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="create_by" jdbcType="BIGINT" property="createBy" />
     <result column="update_by" jdbcType="BIGINT" property="updateBy" />
     <result column="del_flag" jdbcType="TINYINT" property="delFlag" />
+    <result column="invitation_code" jdbcType="VARCHAR" property="invitationCode" />
+    <result column="address_province_code" jdbcType="VARCHAR" property="addressProvinceCode" />
+    <result column="address_city_code" jdbcType="VARCHAR" property="addressCityCode" />
+    <result column="address_area_code" jdbcType="VARCHAR" property="addressAreaCode" />
+    <result column="address_merge_name" jdbcType="VARCHAR" property="addressMergeName" />
+    <result column="tier" jdbcType="INTEGER" property="tier" />
+    <result column="no" jdbcType="VARCHAR" property="no" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,8 +88,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    `member_id`, `name`, `avatar`, `description`, `create_time`, `update_time`, `create_by`, 
-    `update_by`, `del_flag`
+    `id`, `pid`, `nickname`, `mobile`, `password`, `avatar`, `level`, `ban`, `team_id`, 
+    `owner_team_id`, `pay_password`, `gender`, `last_login_time`, `last_login_ip`, `create_time`, 
+    `update_time`, `create_by`, `update_by`, `del_flag`, `invitation_code`, `address_province_code`, 
+    `address_city_code`, `address_area_code`, `address_merge_name`, `tier`, `no`
   </sql>
   <select id="selectByExample" parameterType="top.autuan.templatebusinesssupport.member.entity.MemberExample" resultMap="BaseResultMap">
     select
@@ -96,15 +115,15 @@
       </if>
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from `member`
-    where `member_id` = #{memberId,jdbcType=INTEGER}
+    where `id` = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from `member`
-    where `member_id` = #{memberId,jdbcType=INTEGER}
+    where `id` = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="top.autuan.templatebusinesssupport.member.entity.MemberExample">
     delete from `member`
@@ -113,14 +132,24 @@
     </if>
   </delete>
   <insert id="insert" parameterType="top.autuan.templatebusinesssupport.member.entity.Member">
-    insert into `member` (`member_id`, `name`, `avatar`, 
-      `description`, `create_time`, `update_time`, 
-      `create_by`, `update_by`, `del_flag`
-      )
-    values (#{memberId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{createBy,jdbcType=BIGINT}, #{updateBy,jdbcType=BIGINT}, #{delFlag,jdbcType=TINYINT}
-      )
+    insert into `member` (`id`, `pid`, `nickname`, 
+      `mobile`, `password`, `avatar`, 
+      `level`, `ban`, `team_id`, 
+      `owner_team_id`, `pay_password`, `gender`, 
+      `last_login_time`, `last_login_ip`, `create_time`, 
+      `update_time`, `create_by`, `update_by`, 
+      `del_flag`, `invitation_code`, `address_province_code`, 
+      `address_city_code`, `address_area_code`, `address_merge_name`, 
+      `tier`, `no`)
+    values (#{id,jdbcType=BIGINT}, #{pid,jdbcType=BIGINT}, #{nickname,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, 
+      #{level,jdbcType=INTEGER}, #{ban,jdbcType=INTEGER}, #{teamId,jdbcType=BIGINT}, 
+      #{ownerTeamId,jdbcType=BIGINT}, #{payPassword,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
+      #{lastLoginTime,jdbcType=TIMESTAMP}, #{lastLoginIp,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=BIGINT}, #{updateBy,jdbcType=BIGINT}, 
+      #{delFlag,jdbcType=TINYINT}, #{invitationCode,jdbcType=VARCHAR}, #{addressProvinceCode,jdbcType=VARCHAR}, 
+      #{addressCityCode,jdbcType=VARCHAR}, #{addressAreaCode,jdbcType=VARCHAR}, #{addressMergeName,jdbcType=VARCHAR}, 
+      #{tier,jdbcType=INTEGER}, #{no,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="map">
     insert into `member`
@@ -132,17 +161,47 @@
       </when>
       <otherwise>
         <trim prefix="(" suffix=")" suffixOverrides=",">
-          <if test="record.memberId != null">
-            `member_id`,
+          <if test="record.id != null">
+            `id`,
           </if>
-          <if test="record.name != null">
-            `name`,
+          <if test="record.pid != null">
+            `pid`,
+          </if>
+          <if test="record.nickname != null">
+            `nickname`,
+          </if>
+          <if test="record.mobile != null">
+            `mobile`,
+          </if>
+          <if test="record.password != null">
+            `password`,
           </if>
           <if test="record.avatar != null">
             `avatar`,
           </if>
-          <if test="record.description != null">
-            `description`,
+          <if test="record.level != null">
+            `level`,
+          </if>
+          <if test="record.ban != null">
+            `ban`,
+          </if>
+          <if test="record.teamId != null">
+            `team_id`,
+          </if>
+          <if test="record.ownerTeamId != null">
+            `owner_team_id`,
+          </if>
+          <if test="record.payPassword != null">
+            `pay_password`,
+          </if>
+          <if test="record.gender != null">
+            `gender`,
+          </if>
+          <if test="record.lastLoginTime != null">
+            `last_login_time`,
+          </if>
+          <if test="record.lastLoginIp != null">
+            `last_login_ip`,
           </if>
           <if test="record.createTime != null">
             `create_time`,
@@ -159,6 +218,27 @@
           <if test="record.delFlag != null">
             `del_flag`,
           </if>
+          <if test="record.invitationCode != null">
+            `invitation_code`,
+          </if>
+          <if test="record.addressProvinceCode != null">
+            `address_province_code`,
+          </if>
+          <if test="record.addressCityCode != null">
+            `address_city_code`,
+          </if>
+          <if test="record.addressAreaCode != null">
+            `address_area_code`,
+          </if>
+          <if test="record.addressMergeName != null">
+            `address_merge_name`,
+          </if>
+          <if test="record.tier != null">
+            `tier`,
+          </if>
+          <if test="record.no != null">
+            `no`,
+          </if>
         </trim>
         <trim prefix="(" suffix=")" suffixOverrides="," />
       </otherwise>
@@ -172,17 +252,47 @@
       </when>
       <otherwise>
         <trim prefix="(" suffix=")" suffixOverrides=",">
-          <if test="record.memberId != null">
-            #{record.memberId,jdbcType=INTEGER},
+          <if test="record.id != null">
+            #{record.id,jdbcType=BIGINT},
           </if>
-          <if test="record.name != null">
-            #{record.name,jdbcType=VARCHAR},
+          <if test="record.pid != null">
+            #{record.pid,jdbcType=BIGINT},
+          </if>
+          <if test="record.nickname != null">
+            #{record.nickname,jdbcType=VARCHAR},
+          </if>
+          <if test="record.mobile != null">
+            #{record.mobile,jdbcType=VARCHAR},
+          </if>
+          <if test="record.password != null">
+            #{record.password,jdbcType=VARCHAR},
           </if>
           <if test="record.avatar != null">
             #{record.avatar,jdbcType=VARCHAR},
           </if>
-          <if test="record.description != null">
-            #{record.description,jdbcType=VARCHAR},
+          <if test="record.level != null">
+            #{record.level,jdbcType=INTEGER},
+          </if>
+          <if test="record.ban != null">
+            #{record.ban,jdbcType=INTEGER},
+          </if>
+          <if test="record.teamId != null">
+            #{record.teamId,jdbcType=BIGINT},
+          </if>
+          <if test="record.ownerTeamId != null">
+            #{record.ownerTeamId,jdbcType=BIGINT},
+          </if>
+          <if test="record.payPassword != null">
+            #{record.payPassword,jdbcType=VARCHAR},
+          </if>
+          <if test="record.gender != null">
+            #{record.gender,jdbcType=INTEGER},
+          </if>
+          <if test="record.lastLoginTime != null">
+            #{record.lastLoginTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.lastLoginIp != null">
+            #{record.lastLoginIp,jdbcType=INTEGER},
           </if>
           <if test="record.createTime != null">
             #{record.createTime,jdbcType=TIMESTAMP},
@@ -198,6 +308,27 @@
           </if>
           <if test="record.delFlag != null">
             #{record.delFlag,jdbcType=TINYINT},
+          </if>
+          <if test="record.invitationCode != null">
+            #{record.invitationCode,jdbcType=VARCHAR},
+          </if>
+          <if test="record.addressProvinceCode != null">
+            #{record.addressProvinceCode,jdbcType=VARCHAR},
+          </if>
+          <if test="record.addressCityCode != null">
+            #{record.addressCityCode,jdbcType=VARCHAR},
+          </if>
+          <if test="record.addressAreaCode != null">
+            #{record.addressAreaCode,jdbcType=VARCHAR},
+          </if>
+          <if test="record.addressMergeName != null">
+            #{record.addressMergeName,jdbcType=VARCHAR},
+          </if>
+          <if test="record.tier != null">
+            #{record.tier,jdbcType=INTEGER},
+          </if>
+          <if test="record.no != null">
+            #{record.no,jdbcType=VARCHAR},
           </if>
         </trim>
       </otherwise>
@@ -220,17 +351,47 @@
       </when>
       <otherwise>
         <trim suffixOverrides=",">
-          <if test="record.memberId != null">
-            `member_id` = #{record.memberId,jdbcType=INTEGER},
+          <if test="record.id != null">
+            `id` = #{record.id,jdbcType=BIGINT},
           </if>
-          <if test="record.name != null">
-            `name` = #{record.name,jdbcType=VARCHAR},
+          <if test="record.pid != null">
+            `pid` = #{record.pid,jdbcType=BIGINT},
+          </if>
+          <if test="record.nickname != null">
+            `nickname` = #{record.nickname,jdbcType=VARCHAR},
+          </if>
+          <if test="record.mobile != null">
+            `mobile` = #{record.mobile,jdbcType=VARCHAR},
+          </if>
+          <if test="record.password != null">
+            `password` = #{record.password,jdbcType=VARCHAR},
           </if>
           <if test="record.avatar != null">
             `avatar` = #{record.avatar,jdbcType=VARCHAR},
           </if>
-          <if test="record.description != null">
-            `description` = #{record.description,jdbcType=VARCHAR},
+          <if test="record.level != null">
+            `level` = #{record.level,jdbcType=INTEGER},
+          </if>
+          <if test="record.ban != null">
+            `ban` = #{record.ban,jdbcType=INTEGER},
+          </if>
+          <if test="record.teamId != null">
+            `team_id` = #{record.teamId,jdbcType=BIGINT},
+          </if>
+          <if test="record.ownerTeamId != null">
+            `owner_team_id` = #{record.ownerTeamId,jdbcType=BIGINT},
+          </if>
+          <if test="record.payPassword != null">
+            `pay_password` = #{record.payPassword,jdbcType=VARCHAR},
+          </if>
+          <if test="record.gender != null">
+            `gender` = #{record.gender,jdbcType=INTEGER},
+          </if>
+          <if test="record.lastLoginTime != null">
+            `last_login_time` = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.lastLoginIp != null">
+            `last_login_ip` = #{record.lastLoginIp,jdbcType=INTEGER},
           </if>
           <if test="record.createTime != null">
             `create_time` = #{record.createTime,jdbcType=TIMESTAMP},
@@ -247,6 +408,27 @@
           <if test="record.delFlag != null">
             `del_flag` = #{record.delFlag,jdbcType=TINYINT},
           </if>
+          <if test="record.invitationCode != null">
+            `invitation_code` = #{record.invitationCode,jdbcType=VARCHAR},
+          </if>
+          <if test="record.addressProvinceCode != null">
+            `address_province_code` = #{record.addressProvinceCode,jdbcType=VARCHAR},
+          </if>
+          <if test="record.addressCityCode != null">
+            `address_city_code` = #{record.addressCityCode,jdbcType=VARCHAR},
+          </if>
+          <if test="record.addressAreaCode != null">
+            `address_area_code` = #{record.addressAreaCode,jdbcType=VARCHAR},
+          </if>
+          <if test="record.addressMergeName != null">
+            `address_merge_name` = #{record.addressMergeName,jdbcType=VARCHAR},
+          </if>
+          <if test="record.tier != null">
+            `tier` = #{record.tier,jdbcType=INTEGER},
+          </if>
+          <if test="record.no != null">
+            `no` = #{record.no,jdbcType=VARCHAR},
+          </if>
         </trim>
       </otherwise>
     </choose>
@@ -256,15 +438,32 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update `member`
-    set `member_id` = #{record.memberId,jdbcType=INTEGER},
-      `name` = #{record.name,jdbcType=VARCHAR},
+    set `id` = #{record.id,jdbcType=BIGINT},
+      `pid` = #{record.pid,jdbcType=BIGINT},
+      `nickname` = #{record.nickname,jdbcType=VARCHAR},
+      `mobile` = #{record.mobile,jdbcType=VARCHAR},
+      `password` = #{record.password,jdbcType=VARCHAR},
       `avatar` = #{record.avatar,jdbcType=VARCHAR},
-      `description` = #{record.description,jdbcType=VARCHAR},
+      `level` = #{record.level,jdbcType=INTEGER},
+      `ban` = #{record.ban,jdbcType=INTEGER},
+      `team_id` = #{record.teamId,jdbcType=BIGINT},
+      `owner_team_id` = #{record.ownerTeamId,jdbcType=BIGINT},
+      `pay_password` = #{record.payPassword,jdbcType=VARCHAR},
+      `gender` = #{record.gender,jdbcType=INTEGER},
+      `last_login_time` = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      `last_login_ip` = #{record.lastLoginIp,jdbcType=INTEGER},
       `create_time` = #{record.createTime,jdbcType=TIMESTAMP},
       `update_time` = #{record.updateTime,jdbcType=TIMESTAMP},
       `create_by` = #{record.createBy,jdbcType=BIGINT},
       `update_by` = #{record.updateBy,jdbcType=BIGINT},
-      `del_flag` = #{record.delFlag,jdbcType=TINYINT}
+      `del_flag` = #{record.delFlag,jdbcType=TINYINT},
+      `invitation_code` = #{record.invitationCode,jdbcType=VARCHAR},
+      `address_province_code` = #{record.addressProvinceCode,jdbcType=VARCHAR},
+      `address_city_code` = #{record.addressCityCode,jdbcType=VARCHAR},
+      `address_area_code` = #{record.addressAreaCode,jdbcType=VARCHAR},
+      `address_merge_name` = #{record.addressMergeName,jdbcType=VARCHAR},
+      `tier` = #{record.tier,jdbcType=INTEGER},
+      `no` = #{record.no,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -280,14 +479,44 @@
       </when>
       <otherwise>
         <trim suffixOverrides=",">
-          <if test="record.name != null">
-            `name` = #{record.name,jdbcType=VARCHAR},
+          <if test="record.pid != null">
+            `pid` = #{record.pid,jdbcType=BIGINT},
+          </if>
+          <if test="record.nickname != null">
+            `nickname` = #{record.nickname,jdbcType=VARCHAR},
+          </if>
+          <if test="record.mobile != null">
+            `mobile` = #{record.mobile,jdbcType=VARCHAR},
+          </if>
+          <if test="record.password != null">
+            `password` = #{record.password,jdbcType=VARCHAR},
           </if>
           <if test="record.avatar != null">
             `avatar` = #{record.avatar,jdbcType=VARCHAR},
           </if>
-          <if test="record.description != null">
-            `description` = #{record.description,jdbcType=VARCHAR},
+          <if test="record.level != null">
+            `level` = #{record.level,jdbcType=INTEGER},
+          </if>
+          <if test="record.ban != null">
+            `ban` = #{record.ban,jdbcType=INTEGER},
+          </if>
+          <if test="record.teamId != null">
+            `team_id` = #{record.teamId,jdbcType=BIGINT},
+          </if>
+          <if test="record.ownerTeamId != null">
+            `owner_team_id` = #{record.ownerTeamId,jdbcType=BIGINT},
+          </if>
+          <if test="record.payPassword != null">
+            `pay_password` = #{record.payPassword,jdbcType=VARCHAR},
+          </if>
+          <if test="record.gender != null">
+            `gender` = #{record.gender,jdbcType=INTEGER},
+          </if>
+          <if test="record.lastLoginTime != null">
+            `last_login_time` = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.lastLoginIp != null">
+            `last_login_ip` = #{record.lastLoginIp,jdbcType=INTEGER},
           </if>
           <if test="record.createTime != null">
             `create_time` = #{record.createTime,jdbcType=TIMESTAMP},
@@ -304,22 +533,60 @@
           <if test="record.delFlag != null">
             `del_flag` = #{record.delFlag,jdbcType=TINYINT},
           </if>
+          <if test="record.invitationCode != null">
+            `invitation_code` = #{record.invitationCode,jdbcType=VARCHAR},
+          </if>
+          <if test="record.addressProvinceCode != null">
+            `address_province_code` = #{record.addressProvinceCode,jdbcType=VARCHAR},
+          </if>
+          <if test="record.addressCityCode != null">
+            `address_city_code` = #{record.addressCityCode,jdbcType=VARCHAR},
+          </if>
+          <if test="record.addressAreaCode != null">
+            `address_area_code` = #{record.addressAreaCode,jdbcType=VARCHAR},
+          </if>
+          <if test="record.addressMergeName != null">
+            `address_merge_name` = #{record.addressMergeName,jdbcType=VARCHAR},
+          </if>
+          <if test="record.tier != null">
+            `tier` = #{record.tier,jdbcType=INTEGER},
+          </if>
+          <if test="record.no != null">
+            `no` = #{record.no,jdbcType=VARCHAR},
+          </if>
         </trim>
       </otherwise>
     </choose>
-    where `member_id` = #{record.memberId,jdbcType=INTEGER}
+    where `id` = #{record.id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="top.autuan.templatebusinesssupport.member.entity.Member">
     update `member`
-    set `name` = #{name,jdbcType=VARCHAR},
+    set `pid` = #{pid,jdbcType=BIGINT},
+      `nickname` = #{nickname,jdbcType=VARCHAR},
+      `mobile` = #{mobile,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
       `avatar` = #{avatar,jdbcType=VARCHAR},
-      `description` = #{description,jdbcType=VARCHAR},
+      `level` = #{level,jdbcType=INTEGER},
+      `ban` = #{ban,jdbcType=INTEGER},
+      `team_id` = #{teamId,jdbcType=BIGINT},
+      `owner_team_id` = #{ownerTeamId,jdbcType=BIGINT},
+      `pay_password` = #{payPassword,jdbcType=VARCHAR},
+      `gender` = #{gender,jdbcType=INTEGER},
+      `last_login_time` = #{lastLoginTime,jdbcType=TIMESTAMP},
+      `last_login_ip` = #{lastLoginIp,jdbcType=INTEGER},
       `create_time` = #{createTime,jdbcType=TIMESTAMP},
       `update_time` = #{updateTime,jdbcType=TIMESTAMP},
       `create_by` = #{createBy,jdbcType=BIGINT},
       `update_by` = #{updateBy,jdbcType=BIGINT},
-      `del_flag` = #{delFlag,jdbcType=TINYINT}
-    where `member_id` = #{memberId,jdbcType=INTEGER}
+      `del_flag` = #{delFlag,jdbcType=TINYINT},
+      `invitation_code` = #{invitationCode,jdbcType=VARCHAR},
+      `address_province_code` = #{addressProvinceCode,jdbcType=VARCHAR},
+      `address_city_code` = #{addressCityCode,jdbcType=VARCHAR},
+      `address_area_code` = #{addressAreaCode,jdbcType=VARCHAR},
+      `address_merge_name` = #{addressMergeName,jdbcType=VARCHAR},
+      `tier` = #{tier,jdbcType=INTEGER},
+      `no` = #{no,jdbcType=VARCHAR}
+    where `id` = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectOneByExample" parameterType="top.autuan.templatebusinesssupport.member.entity.MemberExample" resultMap="BaseResultMap">
     select
@@ -335,14 +602,23 @@
   </select>
   <insert id="batchInsert" parameterType="map">
     insert into `member`
-    (`member_id`, `name`, `avatar`, `description`, `create_time`, `update_time`, `create_by`, 
-      `update_by`, `del_flag`)
+    (`id`, `pid`, `nickname`, `mobile`, `password`, `avatar`, `level`, `ban`, `team_id`, 
+      `owner_team_id`, `pay_password`, `gender`, `last_login_time`, `last_login_ip`, 
+      `create_time`, `update_time`, `create_by`, `update_by`, `del_flag`, `invitation_code`, 
+      `address_province_code`, `address_city_code`, `address_area_code`, `address_merge_name`, 
+      `tier`, `no`)
     values
     <foreach collection="list" item="item" separator=",">
-      (#{item.memberId,jdbcType=INTEGER}, #{item.name,jdbcType=VARCHAR}, #{item.avatar,jdbcType=VARCHAR}, 
-        #{item.description,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}, 
-        #{item.createBy,jdbcType=BIGINT}, #{item.updateBy,jdbcType=BIGINT}, #{item.delFlag,jdbcType=TINYINT}
-        )
+      (#{item.id,jdbcType=BIGINT}, #{item.pid,jdbcType=BIGINT}, #{item.nickname,jdbcType=VARCHAR}, 
+        #{item.mobile,jdbcType=VARCHAR}, #{item.password,jdbcType=VARCHAR}, #{item.avatar,jdbcType=VARCHAR}, 
+        #{item.level,jdbcType=INTEGER}, #{item.ban,jdbcType=INTEGER}, #{item.teamId,jdbcType=BIGINT}, 
+        #{item.ownerTeamId,jdbcType=BIGINT}, #{item.payPassword,jdbcType=VARCHAR}, #{item.gender,jdbcType=INTEGER}, 
+        #{item.lastLoginTime,jdbcType=TIMESTAMP}, #{item.lastLoginIp,jdbcType=INTEGER}, 
+        #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}, #{item.createBy,jdbcType=BIGINT}, 
+        #{item.updateBy,jdbcType=BIGINT}, #{item.delFlag,jdbcType=TINYINT}, #{item.invitationCode,jdbcType=VARCHAR}, 
+        #{item.addressProvinceCode,jdbcType=VARCHAR}, #{item.addressCityCode,jdbcType=VARCHAR}, 
+        #{item.addressAreaCode,jdbcType=VARCHAR}, #{item.addressMergeName,jdbcType=VARCHAR}, 
+        #{item.tier,jdbcType=INTEGER}, #{item.no,jdbcType=VARCHAR})
     </foreach>
   </insert>
   <insert id="batchInsertSelective" parameterType="map">
@@ -355,17 +631,47 @@
     <foreach collection="list" item="item" separator=",">
       (
       <foreach collection="selective" item="column" separator=",">
-        <if test="'member_id'.toString() == column.value">
-          #{item.memberId,jdbcType=INTEGER}
+        <if test="'id'.toString() == column.value">
+          #{item.id,jdbcType=BIGINT}
         </if>
-        <if test="'name'.toString() == column.value">
-          #{item.name,jdbcType=VARCHAR}
+        <if test="'pid'.toString() == column.value">
+          #{item.pid,jdbcType=BIGINT}
+        </if>
+        <if test="'nickname'.toString() == column.value">
+          #{item.nickname,jdbcType=VARCHAR}
+        </if>
+        <if test="'mobile'.toString() == column.value">
+          #{item.mobile,jdbcType=VARCHAR}
+        </if>
+        <if test="'password'.toString() == column.value">
+          #{item.password,jdbcType=VARCHAR}
         </if>
         <if test="'avatar'.toString() == column.value">
           #{item.avatar,jdbcType=VARCHAR}
         </if>
-        <if test="'description'.toString() == column.value">
-          #{item.description,jdbcType=VARCHAR}
+        <if test="'level'.toString() == column.value">
+          #{item.level,jdbcType=INTEGER}
+        </if>
+        <if test="'ban'.toString() == column.value">
+          #{item.ban,jdbcType=INTEGER}
+        </if>
+        <if test="'team_id'.toString() == column.value">
+          #{item.teamId,jdbcType=BIGINT}
+        </if>
+        <if test="'owner_team_id'.toString() == column.value">
+          #{item.ownerTeamId,jdbcType=BIGINT}
+        </if>
+        <if test="'pay_password'.toString() == column.value">
+          #{item.payPassword,jdbcType=VARCHAR}
+        </if>
+        <if test="'gender'.toString() == column.value">
+          #{item.gender,jdbcType=INTEGER}
+        </if>
+        <if test="'last_login_time'.toString() == column.value">
+          #{item.lastLoginTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'last_login_ip'.toString() == column.value">
+          #{item.lastLoginIp,jdbcType=INTEGER}
         </if>
         <if test="'create_time'.toString() == column.value">
           #{item.createTime,jdbcType=TIMESTAMP}
@@ -381,6 +687,27 @@
         </if>
         <if test="'del_flag'.toString() == column.value">
           #{item.delFlag,jdbcType=TINYINT}
+        </if>
+        <if test="'invitation_code'.toString() == column.value">
+          #{item.invitationCode,jdbcType=VARCHAR}
+        </if>
+        <if test="'address_province_code'.toString() == column.value">
+          #{item.addressProvinceCode,jdbcType=VARCHAR}
+        </if>
+        <if test="'address_city_code'.toString() == column.value">
+          #{item.addressCityCode,jdbcType=VARCHAR}
+        </if>
+        <if test="'address_area_code'.toString() == column.value">
+          #{item.addressAreaCode,jdbcType=VARCHAR}
+        </if>
+        <if test="'address_merge_name'.toString() == column.value">
+          #{item.addressMergeName,jdbcType=VARCHAR}
+        </if>
+        <if test="'tier'.toString() == column.value">
+          #{item.tier,jdbcType=INTEGER}
+        </if>
+        <if test="'no'.toString() == column.value">
+          #{item.no,jdbcType=VARCHAR}
         </if>
       </foreach>
       )
