@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.autuan.templatebusinesssupport.base.mapper.ConfigImgMapper">
+  <resultMap id="BaseResultMap" type="top.autuan.templatebusinesssupport.base.entity.ConfigImg">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="store_id" jdbcType="BIGINT" property="storeId" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="des" jdbcType="VARCHAR" property="des" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="link_type" jdbcType="INTEGER" property="linkType" />
+    <result column="link_url" jdbcType="VARCHAR" property="linkUrl" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_by" jdbcType="BIGINT" property="createBy" />
+    <result column="update_by" jdbcType="BIGINT" property="updateBy" />
+    <result column="del_flag" jdbcType="TINYINT" property="delFlag" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    `id`, `store_id`, `img_url`, `des`, `title`, `link_type`, `link_url`, `status`, `seq`, 
+    `type`, `create_time`, `update_time`, `create_by`, `update_by`, `del_flag`
+  </sql>
+  <select id="selectByExample" parameterType="top.autuan.templatebusinesssupport.base.entity.ConfigImgExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from `config_img`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="rows != null">
+      <if test="offset != null">
+        limit ${offset}, ${rows}
+      </if>
+      <if test="offset == null">
+        limit ${rows}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `config_img`
+    where `id` = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from `config_img`
+    where `id` = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="top.autuan.templatebusinesssupport.base.entity.ConfigImgExample">
+    delete from `config_img`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="top.autuan.templatebusinesssupport.base.entity.ConfigImg">
+    insert into `config_img` (`id`, `store_id`, `img_url`, 
+      `des`, `title`, `link_type`, 
+      `link_url`, `status`, `seq`, 
+      `type`, `create_time`, `update_time`, 
+      `create_by`, `update_by`, `del_flag`
+      )
+    values (#{id,jdbcType=BIGINT}, #{storeId,jdbcType=BIGINT}, #{imgUrl,jdbcType=VARCHAR}, 
+      #{des,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{linkType,jdbcType=INTEGER}, 
+      #{linkUrl,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{seq,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=BIGINT}, #{updateBy,jdbcType=BIGINT}, #{delFlag,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="map">
+    insert into `config_img`
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        <foreach close=")" collection="selective" item="column" open="(" separator=",">
+          ${column.escapedColumnName}
+        </foreach>
+      </when>
+      <otherwise>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+          <if test="record.id != null">
+            `id`,
+          </if>
+          <if test="record.storeId != null">
+            `store_id`,
+          </if>
+          <if test="record.imgUrl != null">
+            `img_url`,
+          </if>
+          <if test="record.des != null">
+            `des`,
+          </if>
+          <if test="record.title != null">
+            `title`,
+          </if>
+          <if test="record.linkType != null">
+            `link_type`,
+          </if>
+          <if test="record.linkUrl != null">
+            `link_url`,
+          </if>
+          <if test="record.status != null">
+            `status`,
+          </if>
+          <if test="record.seq != null">
+            `seq`,
+          </if>
+          <if test="record.type != null">
+            `type`,
+          </if>
+          <if test="record.createTime != null">
+            `create_time`,
+          </if>
+          <if test="record.updateTime != null">
+            `update_time`,
+          </if>
+          <if test="record.createBy != null">
+            `create_by`,
+          </if>
+          <if test="record.updateBy != null">
+            `update_by`,
+          </if>
+          <if test="record.delFlag != null">
+            `del_flag`,
+          </if>
+        </trim>
+        <trim prefix="(" suffix=")" suffixOverrides="," />
+      </otherwise>
+    </choose>
+    values
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        <foreach close=")" collection="selective" item="column" open="(" separator=",">
+          #{record.${column.javaProperty},jdbcType=${column.jdbcType}}
+        </foreach>
+      </when>
+      <otherwise>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+          <if test="record.id != null">
+            #{record.id,jdbcType=BIGINT},
+          </if>
+          <if test="record.storeId != null">
+            #{record.storeId,jdbcType=BIGINT},
+          </if>
+          <if test="record.imgUrl != null">
+            #{record.imgUrl,jdbcType=VARCHAR},
+          </if>
+          <if test="record.des != null">
+            #{record.des,jdbcType=VARCHAR},
+          </if>
+          <if test="record.title != null">
+            #{record.title,jdbcType=VARCHAR},
+          </if>
+          <if test="record.linkType != null">
+            #{record.linkType,jdbcType=INTEGER},
+          </if>
+          <if test="record.linkUrl != null">
+            #{record.linkUrl,jdbcType=VARCHAR},
+          </if>
+          <if test="record.status != null">
+            #{record.status,jdbcType=INTEGER},
+          </if>
+          <if test="record.seq != null">
+            #{record.seq,jdbcType=INTEGER},
+          </if>
+          <if test="record.type != null">
+            #{record.type,jdbcType=INTEGER},
+          </if>
+          <if test="record.createTime != null">
+            #{record.createTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.updateTime != null">
+            #{record.updateTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.createBy != null">
+            #{record.createBy,jdbcType=BIGINT},
+          </if>
+          <if test="record.updateBy != null">
+            #{record.updateBy,jdbcType=BIGINT},
+          </if>
+          <if test="record.delFlag != null">
+            #{record.delFlag,jdbcType=TINYINT},
+          </if>
+        </trim>
+      </otherwise>
+    </choose>
+  </insert>
+  <select id="countByExample" parameterType="top.autuan.templatebusinesssupport.base.entity.ConfigImgExample" resultType="java.lang.Long">
+    select count(*) from `config_img`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update `config_img`
+    SET
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        <foreach collection="selective" item="column" separator=",">
+          ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=${column.jdbcType}}
+        </foreach>
+      </when>
+      <otherwise>
+        <trim suffixOverrides=",">
+          <if test="record.id != null">
+            `id` = #{record.id,jdbcType=BIGINT},
+          </if>
+          <if test="record.storeId != null">
+            `store_id` = #{record.storeId,jdbcType=BIGINT},
+          </if>
+          <if test="record.imgUrl != null">
+            `img_url` = #{record.imgUrl,jdbcType=VARCHAR},
+          </if>
+          <if test="record.des != null">
+            `des` = #{record.des,jdbcType=VARCHAR},
+          </if>
+          <if test="record.title != null">
+            `title` = #{record.title,jdbcType=VARCHAR},
+          </if>
+          <if test="record.linkType != null">
+            `link_type` = #{record.linkType,jdbcType=INTEGER},
+          </if>
+          <if test="record.linkUrl != null">
+            `link_url` = #{record.linkUrl,jdbcType=VARCHAR},
+          </if>
+          <if test="record.status != null">
+            `status` = #{record.status,jdbcType=INTEGER},
+          </if>
+          <if test="record.seq != null">
+            `seq` = #{record.seq,jdbcType=INTEGER},
+          </if>
+          <if test="record.type != null">
+            `type` = #{record.type,jdbcType=INTEGER},
+          </if>
+          <if test="record.createTime != null">
+            `create_time` = #{record.createTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.updateTime != null">
+            `update_time` = #{record.updateTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.createBy != null">
+            `create_by` = #{record.createBy,jdbcType=BIGINT},
+          </if>
+          <if test="record.updateBy != null">
+            `update_by` = #{record.updateBy,jdbcType=BIGINT},
+          </if>
+          <if test="record.delFlag != null">
+            `del_flag` = #{record.delFlag,jdbcType=TINYINT},
+          </if>
+        </trim>
+      </otherwise>
+    </choose>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update `config_img`
+    set `id` = #{record.id,jdbcType=BIGINT},
+      `store_id` = #{record.storeId,jdbcType=BIGINT},
+      `img_url` = #{record.imgUrl,jdbcType=VARCHAR},
+      `des` = #{record.des,jdbcType=VARCHAR},
+      `title` = #{record.title,jdbcType=VARCHAR},
+      `link_type` = #{record.linkType,jdbcType=INTEGER},
+      `link_url` = #{record.linkUrl,jdbcType=VARCHAR},
+      `status` = #{record.status,jdbcType=INTEGER},
+      `seq` = #{record.seq,jdbcType=INTEGER},
+      `type` = #{record.type,jdbcType=INTEGER},
+      `create_time` = #{record.createTime,jdbcType=TIMESTAMP},
+      `update_time` = #{record.updateTime,jdbcType=TIMESTAMP},
+      `create_by` = #{record.createBy,jdbcType=BIGINT},
+      `update_by` = #{record.updateBy,jdbcType=BIGINT},
+      `del_flag` = #{record.delFlag,jdbcType=TINYINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="map">
+    update `config_img`
+    SET
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        <foreach collection="selective" item="column" separator=",">
+          ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=${column.jdbcType}}
+        </foreach>
+      </when>
+      <otherwise>
+        <trim suffixOverrides=",">
+          <if test="record.storeId != null">
+            `store_id` = #{record.storeId,jdbcType=BIGINT},
+          </if>
+          <if test="record.imgUrl != null">
+            `img_url` = #{record.imgUrl,jdbcType=VARCHAR},
+          </if>
+          <if test="record.des != null">
+            `des` = #{record.des,jdbcType=VARCHAR},
+          </if>
+          <if test="record.title != null">
+            `title` = #{record.title,jdbcType=VARCHAR},
+          </if>
+          <if test="record.linkType != null">
+            `link_type` = #{record.linkType,jdbcType=INTEGER},
+          </if>
+          <if test="record.linkUrl != null">
+            `link_url` = #{record.linkUrl,jdbcType=VARCHAR},
+          </if>
+          <if test="record.status != null">
+            `status` = #{record.status,jdbcType=INTEGER},
+          </if>
+          <if test="record.seq != null">
+            `seq` = #{record.seq,jdbcType=INTEGER},
+          </if>
+          <if test="record.type != null">
+            `type` = #{record.type,jdbcType=INTEGER},
+          </if>
+          <if test="record.createTime != null">
+            `create_time` = #{record.createTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.updateTime != null">
+            `update_time` = #{record.updateTime,jdbcType=TIMESTAMP},
+          </if>
+          <if test="record.createBy != null">
+            `create_by` = #{record.createBy,jdbcType=BIGINT},
+          </if>
+          <if test="record.updateBy != null">
+            `update_by` = #{record.updateBy,jdbcType=BIGINT},
+          </if>
+          <if test="record.delFlag != null">
+            `del_flag` = #{record.delFlag,jdbcType=TINYINT},
+          </if>
+        </trim>
+      </otherwise>
+    </choose>
+    where `id` = #{record.id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="top.autuan.templatebusinesssupport.base.entity.ConfigImg">
+    update `config_img`
+    set `store_id` = #{storeId,jdbcType=BIGINT},
+      `img_url` = #{imgUrl,jdbcType=VARCHAR},
+      `des` = #{des,jdbcType=VARCHAR},
+      `title` = #{title,jdbcType=VARCHAR},
+      `link_type` = #{linkType,jdbcType=INTEGER},
+      `link_url` = #{linkUrl,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=INTEGER},
+      `seq` = #{seq,jdbcType=INTEGER},
+      `type` = #{type,jdbcType=INTEGER},
+      `create_time` = #{createTime,jdbcType=TIMESTAMP},
+      `update_time` = #{updateTime,jdbcType=TIMESTAMP},
+      `create_by` = #{createBy,jdbcType=BIGINT},
+      `update_by` = #{updateBy,jdbcType=BIGINT},
+      `del_flag` = #{delFlag,jdbcType=TINYINT}
+    where `id` = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectOneByExample" parameterType="top.autuan.templatebusinesssupport.base.entity.ConfigImgExample" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from `config_img`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    limit 1
+  </select>
+  <insert id="batchInsert" parameterType="map">
+    insert into `config_img`
+    (`id`, `store_id`, `img_url`, `des`, `title`, `link_type`, `link_url`, `status`, 
+      `seq`, `type`, `create_time`, `update_time`, `create_by`, `update_by`, `del_flag`
+      )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=BIGINT}, #{item.storeId,jdbcType=BIGINT}, #{item.imgUrl,jdbcType=VARCHAR}, 
+        #{item.des,jdbcType=VARCHAR}, #{item.title,jdbcType=VARCHAR}, #{item.linkType,jdbcType=INTEGER}, 
+        #{item.linkUrl,jdbcType=VARCHAR}, #{item.status,jdbcType=INTEGER}, #{item.seq,jdbcType=INTEGER}, 
+        #{item.type,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}, 
+        #{item.createBy,jdbcType=BIGINT}, #{item.updateBy,jdbcType=BIGINT}, #{item.delFlag,jdbcType=TINYINT}
+        )
+    </foreach>
+  </insert>
+  <insert id="batchInsertSelective" parameterType="map">
+    insert into `config_img` (
+    <foreach collection="selective" item="column" separator=",">
+      ${column.escapedColumnName}
+    </foreach>
+    )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (
+      <foreach collection="selective" item="column" separator=",">
+        <if test="'id'.toString() == column.value">
+          #{item.id,jdbcType=BIGINT}
+        </if>
+        <if test="'store_id'.toString() == column.value">
+          #{item.storeId,jdbcType=BIGINT}
+        </if>
+        <if test="'img_url'.toString() == column.value">
+          #{item.imgUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="'des'.toString() == column.value">
+          #{item.des,jdbcType=VARCHAR}
+        </if>
+        <if test="'title'.toString() == column.value">
+          #{item.title,jdbcType=VARCHAR}
+        </if>
+        <if test="'link_type'.toString() == column.value">
+          #{item.linkType,jdbcType=INTEGER}
+        </if>
+        <if test="'link_url'.toString() == column.value">
+          #{item.linkUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="'status'.toString() == column.value">
+          #{item.status,jdbcType=INTEGER}
+        </if>
+        <if test="'seq'.toString() == column.value">
+          #{item.seq,jdbcType=INTEGER}
+        </if>
+        <if test="'type'.toString() == column.value">
+          #{item.type,jdbcType=INTEGER}
+        </if>
+        <if test="'create_time'.toString() == column.value">
+          #{item.createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'update_time'.toString() == column.value">
+          #{item.updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="'create_by'.toString() == column.value">
+          #{item.createBy,jdbcType=BIGINT}
+        </if>
+        <if test="'update_by'.toString() == column.value">
+          #{item.updateBy,jdbcType=BIGINT}
+        </if>
+        <if test="'del_flag'.toString() == column.value">
+          #{item.delFlag,jdbcType=TINYINT}
+        </if>
+      </foreach>
+      )
+    </foreach>
+  </insert>
+</mapper>
