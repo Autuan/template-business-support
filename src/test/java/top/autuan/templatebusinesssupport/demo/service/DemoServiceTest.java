@@ -4,6 +4,7 @@ import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.StrUtil;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
+@Slf4j
 class DemoServiceTest {
     @Autowired
     private DemoService demoService;
@@ -28,6 +30,8 @@ class DemoServiceTest {
     void
     queryStr() {
         String str = demoService.queryStr();
+        log.info("DemoServiceTest -> queryStr -> str -> {}",str);
+
         Assert.notNull(str);
     }
 }
