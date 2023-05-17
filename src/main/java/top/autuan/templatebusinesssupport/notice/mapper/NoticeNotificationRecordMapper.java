@@ -1,4 +1,4 @@
-package top.autuan.templatebusinesssupport.notice.mappere;
+package top.autuan.templatebusinesssupport.notice.mapper;
 
 import top.autuan.templatebusinesssupport.notice.entity.NoticeNotificationRecord;
 import top.autuan.templatebusinesssupport.notice.entity.NoticeNotificationRecordExample;

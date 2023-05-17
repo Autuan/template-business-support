@@ -2,7 +2,6 @@ package top.autuan.templatebusinesssupport.notice.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,9 +11,9 @@ import top.autuan.templatebusinesssupport.notice.enums.MessageStatueEnum;
 import top.autuan.templatebusinesssupport.notice.enums.NotificationDict;
 import top.autuan.templatebusinesssupport.notice.enums.NotificationDictInterface;
 import top.autuan.templatebusinesssupport.notice.enums.WebSocketMsgType;
-import top.autuan.templatebusinesssupport.notice.mappere.NoticeNotificationMapper;
-import top.autuan.templatebusinesssupport.notice.mappere.NoticeNotificationRecordMapper;
-import top.autuan.templatebusinesssupport.notice.mappere.NoticeRemindMapper;
+import top.autuan.templatebusinesssupport.notice.mapper.NoticeNotificationMapper;
+import top.autuan.templatebusinesssupport.notice.mapper.NoticeNotificationRecordMapper;
+import top.autuan.templatebusinesssupport.notice.mapper.NoticeRemindMapper;
 import top.autuan.templatebusinesssupport.notice.service.NoticeMessageService;
 
 import java.time.LocalDateTime;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service

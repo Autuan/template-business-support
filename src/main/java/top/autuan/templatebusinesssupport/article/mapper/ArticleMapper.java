@@ -1,12 +1,13 @@
 package top.autuan.templatebusinesssupport.article.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import top.autuan.templatebusinesssupport.article.entity.Article;
 import top.autuan.templatebusinesssupport.article.entity.ArticleExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface ArticleMapper {
+public interface ArticleMapper extends BaseMapper<Article> {
     long countByExample(ArticleExample example);
 
     int deleteByExample(ArticleExample example);
