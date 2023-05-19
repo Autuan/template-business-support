@@ -32,3 +32,7 @@ pom.xml 文件修改maven的 group id 和 artifact id 及其他相关信息
 ```
 
 在 Project 视图里使用 shift F6 重命名项目为你的项目名
+
+rename base package
+
+mvn clean install

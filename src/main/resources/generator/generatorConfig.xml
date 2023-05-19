@@ -43,6 +43,23 @@
             <property name="supportSuperBuilderForIdea" value="false"/>
         </plugin>
 
+          <!-- 逻辑删除插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.LogicalDeletePlugin">
+            <!-- 这里配置的是全局逻辑删除列和逻辑删除值，当然在table中配置的值会覆盖该全局配置 -->
+            <!-- 逻辑删除列类型只能为数字、字符串或者布尔类型 -->
+            <property name="logicalDeleteColumn" value="del_flag"/>
+            <!-- 逻辑删除-已删除值 -->
+            <property name="logicalDeleteValue" value="1"/>
+            <!-- 逻辑删除-未删除值 -->
+            <property name="logicalUnDeleteValue" value="0"/>
+            <!-- 是否生成逻辑删除常量(只有开启时 logicalDeleteConstName、logicalUnDeleteConstName 才生效) -->
+            <property name="enableLogicalDeleteConst" value="false"/>
+            <!-- 逻辑删除常量名称，不配置默认为 IS_DELETED -->
+            <property name="logicalDeleteConstName" value="IS_DELETED"/>
+            <!-- 逻辑删除常量（未删除）名称，不配置默认为 NOT_DELETED -->
+            <property name="logicalUnDeleteConstName" value="NOT_DELETED"/>
+        </plugin>
+
         <commentGenerator>
             <property name="suppressDate" value="true"/>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
@@ -71,7 +88,7 @@
 
         <!-- 生成映射文件的包名和位置-->
         <sqlMapGenerator targetPackage="${jdbc.modular.name}"
-                         targetProject="src/main/resources/mapper">
+                         targetProject="src/main/resources/${jdbc.mapper.target.dir}/mapper">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
@@ -80,23 +97,6 @@
                              targetProject="src/main/java" >
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
-
-         <!-- 逻辑删除插件 -->
-        <plugin type="com.itfsw.mybatis.generator.plugins.LogicalDeletePlugin">
-            <!-- 这里配置的是全局逻辑删除列和逻辑删除值，当然在table中配置的值会覆盖该全局配置 -->
-            <!-- 逻辑删除列类型只能为数字、字符串或者布尔类型 -->
-            <property name="logicalDeleteColumn" value="del_flag"/>
-            <!-- 逻辑删除-已删除值 -->
-            <property name="logicalDeleteValue" value="1"/>
-            <!-- 逻辑删除-未删除值 -->
-            <property name="logicalUnDeleteValue" value="0"/>
-            <!-- 是否生成逻辑删除常量(只有开启时 logicalDeleteConstName、logicalUnDeleteConstName 才生效) -->
-            <property name="enableLogicalDeleteConst" value="false"/>
-            <!-- 逻辑删除常量名称，不配置默认为 IS_DELETED -->
-            <property name="logicalDeleteConstName" value="IS_DELETED"/>
-            <!-- 逻辑删除常量（未删除）名称，不配置默认为 NOT_DELETED -->
-            <property name="logicalUnDeleteConstName" value="NOT_DELETED"/>
-        </plugin>
 
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
         <table tableName="${jdbc.table}" delimitIdentifiers="true" delimitAllColumns="true"/>
